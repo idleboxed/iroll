@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"
+     role="img" aria-labelledby="title description">
+  <title id="title">iroll</title>
+  <desc id="description">Software build and deployment. Pixel logo in graphite and muted plum on a transparent background.</desc>
+  <defs>
+    <path id="glyph-i" d="M2-2h1v1H2z M1 0h2v4h1v1H1V4h1V1H1z"/>
+    <path id="glyph-r" d="M0 0h1v1l1-1h3v1H2L1 2v3H0z"/>
+    <path id="glyph-o" d="M1 0h3l1 1v3L4 5H1L0 4V1z M1 1v3h3V1z"/>
+    <path id="glyph-l" d="M1-2h2v6h1v1H2V-1H1z"/>
+  </defs>
+  <g id="symbol" transform="translate(100 64) scale(24)" fill-rule="evenodd">
+    <path fill="#444749" d="M3 2h4v1H3z M2 3h1v5H2z M3 8h4v1H3z M8 1h1v1h1v1h1v1h-1v1H9v1H8z M8 7h1.5v1.5H8z"/>
+    <g fill="#9a8994">
+      <rect x="8" y="9.5" width="2" height="2"/>
+    </g>
+  </g>
+  <g id="wordmark" transform="translate(140 392) scale(8)" fill="#444749" fill-rule="evenodd">
+    <use href="#glyph-i" x="0"/>
+    <use href="#glyph-r" x="6"/>
+    <use href="#glyph-o" x="12"/>
+    <use href="#glyph-l" x="18"/>
+    <use href="#glyph-l" x="24"/>
+  </g>
+</svg>

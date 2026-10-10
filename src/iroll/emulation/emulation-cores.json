@@ -1,0 +1,349 @@
+{
+  "retroarch/cores/nestopia_libretro.so": {
+    "NES": {
+      "library_name": "Nestopia",
+      "remap": {
+        "input_player1_btn_a": 0,
+        "input_player1_btn_b": 8,
+        "input_player2_btn_a": 0,
+        "input_player2_btn_b": 8,
+        "input_player1_btn_l": -1,
+        "input_player1_btn_r": -1,
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_r2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_l": -1,
+        "input_player2_btn_r": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_r2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      }
+    },
+    "FDS": {
+      "library_name": "Nestopia",
+      "remap": {
+        "input_player1_btn_a": 0,
+        "input_player1_btn_b": 8,
+        "input_player1_btn_x": 10,
+        "input_player1_btn_y": 11,
+        "input_player2_btn_a": 0,
+        "input_player2_btn_b": 8,
+        "input_player1_btn_l": -1,
+        "input_player1_btn_r": -1,
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_r2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_l": -1,
+        "input_player2_btn_r": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_r2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      }
+    }
+  },
+  "retroarch/cores/gambatte_libretro.so": {
+    "GB": {
+      "library_name": "Gambatte",
+      "remap": {
+        "input_player1_btn_a": 0,
+        "input_player1_btn_b": 8,
+        "input_player1_btn_x": -1,
+        "input_player1_btn_y": -1,
+        "input_player1_btn_l": -1,
+        "input_player1_btn_r": -1,
+        "input_player1_btn_r2": -1,
+        "input_player2_btn_a": 0,
+        "input_player2_btn_b": 8,
+        "input_player2_btn_x": -1,
+        "input_player2_btn_y": -1,
+        "input_player2_btn_l": -1,
+        "input_player2_btn_r": -1,
+        "input_player2_btn_r2": -1,
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      }
+    },
+    "GBC": {
+      "library_name": "Gambatte",
+      "remap": {
+        "input_player1_btn_a": 0,
+        "input_player1_btn_b": 8,
+        "input_player1_btn_x": -1,
+        "input_player1_btn_y": -1,
+        "input_player1_btn_l": -1,
+        "input_player1_btn_r": -1,
+        "input_player1_btn_r2": -1,
+        "input_player2_btn_a": 0,
+        "input_player2_btn_b": 8,
+        "input_player2_btn_x": -1,
+        "input_player2_btn_y": -1,
+        "input_player2_btn_l": -1,
+        "input_player2_btn_r": -1,
+        "input_player2_btn_r2": -1,
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      }
+    }
+  },
+  "retroarch/cores/snes9x2010_libretro.so": {
+    "SNES": {
+      "library_name": "Snes9x 2010",
+      "remap": {
+        "input_player1_btn_a": 0,
+        "input_player1_btn_b": 8,
+        "input_player2_btn_a": 0,
+        "input_player2_btn_b": 8,
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_r2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_r2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      }
+    }
+  },
+  "retroarch/cores/gpsp_libretro.so": {
+    "GBA": {
+      "library_name": "gpSP",
+      "remap": {
+        "input_player1_btn_a": 0,
+        "input_player1_btn_b": 8,
+        "input_player1_btn_x": -1,
+        "input_player1_btn_y": -1,
+        "input_player1_btn_r2": -1,
+        "input_player2_btn_a": 0,
+        "input_player2_btn_b": 8,
+        "input_player2_btn_x": -1,
+        "input_player2_btn_y": -1,
+        "input_player2_btn_r2": -1,
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      }
+    }
+  },
+  "retroarch/cores/mupen64plus_next_libretro.so": {
+    "N64": {
+      "system_directory": "ram",
+      "core_options": {
+        "mupen64plus-rdp-plugin": "gliden64",
+        "mupen64plus-rsp-plugin": "hle",
+        "mupen64plus-43screensize": "320x240",
+        "mupen64plus-aspect": "4:3",
+        "mupen64plus-EnableCopyDepthToRDRAM": "Off",
+        "mupen64plus-txHiresEnable": "False",
+        "mupen64plus-EnableTextureCache": "False",
+        "mupen64plus-EnableEnhancedTextureStorage": "False",
+        "mupen64plus-EnableEnhancedHighResStorage": "False",
+        "mupen64plus-alt-map": "True"
+      },
+      "library_name": "Mupen64Plus-Next",
+      "remap": {
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player1_stk_r_x+": -1,
+        "input_player1_stk_r_x-": -1,
+        "input_player1_stk_r_y+": -1,
+        "input_player1_stk_r_y-": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1,
+        "input_player2_stk_r_x+": -1,
+        "input_player2_stk_r_x-": -1,
+        "input_player2_stk_r_y+": -1,
+        "input_player2_stk_r_y-": -1
+      }
+    }
+  },
+  "retroarch/cores/picodrive_libretro.so": {
+    "MD": {
+      "library_name": "PicoDrive",
+      "remap": {
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_r2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_r2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      },
+      "core_options": {
+        "picodrive_input1": "6 button pad",
+        "picodrive_input2": "6 button pad"
+      }
+    },
+    "SMS": {
+      "library_name": "PicoDrive",
+      "remap": {
+        "input_player1_btn_y": -1,
+        "input_player1_btn_select": -1,
+        "input_player1_btn_x": -1,
+        "input_player1_btn_l": -1,
+        "input_player1_btn_r": -1,
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_r2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_y": -1,
+        "input_player2_btn_select": -1,
+        "input_player2_btn_x": -1,
+        "input_player2_btn_l": -1,
+        "input_player2_btn_r": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_r2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      }
+    },
+    "GG": {
+      "library_name": "PicoDrive",
+      "remap": {
+        "input_player1_btn_y": -1,
+        "input_player1_btn_select": -1,
+        "input_player1_btn_x": -1,
+        "input_player1_btn_l": -1,
+        "input_player1_btn_r": -1,
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_r2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_y": -1,
+        "input_player2_btn_select": -1,
+        "input_player2_btn_x": -1,
+        "input_player2_btn_l": -1,
+        "input_player2_btn_r": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_r2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      }
+    },
+    "SG1000": {
+      "library_name": "PicoDrive",
+      "remap": {
+        "input_player1_btn_y": -1,
+        "input_player1_btn_select": -1,
+        "input_player1_btn_start": -1,
+        "input_player1_btn_x": -1,
+        "input_player1_btn_l": -1,
+        "input_player1_btn_r": -1,
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_r2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_y": -1,
+        "input_player2_btn_select": -1,
+        "input_player2_btn_start": -1,
+        "input_player2_btn_x": -1,
+        "input_player2_btn_l": -1,
+        "input_player2_btn_r": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_r2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      }
+    },
+    "SC3000": {
+      "library_name": "PicoDrive",
+      "remap": {
+        "input_player1_btn_y": -1,
+        "input_player1_btn_select": -1,
+        "input_player1_btn_start": -1,
+        "input_player1_btn_x": -1,
+        "input_player1_btn_l": -1,
+        "input_player1_btn_r": -1,
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_r2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_y": -1,
+        "input_player2_btn_select": -1,
+        "input_player2_btn_start": -1,
+        "input_player2_btn_x": -1,
+        "input_player2_btn_l": -1,
+        "input_player2_btn_r": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_r2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      }
+    },
+    "SCD": {
+      "library_name": "PicoDrive",
+      "remap": {
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_r2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_r2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      },
+      "core_options": {
+        "picodrive_input1": "6 button pad",
+        "picodrive_input2": "6 button pad"
+      }
+    },
+    "32X": {
+      "library_name": "PicoDrive",
+      "remap": {
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_r2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_r2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      },
+      "core_options": {
+        "picodrive_input1": "6 button pad",
+        "picodrive_input2": "6 button pad"
+      }
+    },
+    "PICO": {
+      "library_name": "PicoDrive",
+      "remap": {
+        "input_player1_btn_select": -1,
+        "input_player1_btn_l2": -1,
+        "input_player1_btn_r2": -1,
+        "input_player1_btn_l3": -1,
+        "input_player1_btn_r3": -1,
+        "input_player2_btn_select": -1,
+        "input_player2_btn_l2": -1,
+        "input_player2_btn_r2": -1,
+        "input_player2_btn_l3": -1,
+        "input_player2_btn_r3": -1
+      }
+    }
+  },
+  "retroarch/cores/pcsx_rearmed_libretro.so": {
+    "PSX": {
+      "library_name": "PCSX-ReARMed",
+      "remap": {
+        "input_player1_btn_x": 1,
+        "input_player1_btn_y": 9,
+        "input_player2_btn_x": 1,
+        "input_player2_btn_y": 9
+      }
+    }
+  }
+}

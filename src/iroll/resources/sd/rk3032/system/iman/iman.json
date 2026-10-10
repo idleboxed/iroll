@@ -1,0 +1,10 @@
+{
+  "runtime_dir": "/tmp",
+  "gui": {
+    "display": {
+      "backend": "drm",
+      "device": "/dev/dri/card0",
+      "allow_vendor_einval": true
+    }
+  }
+}

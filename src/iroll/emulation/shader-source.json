@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/libretro/glsl-shaders",
+  "revision": "f8e23ff880668f0f0e837a05a316534d82a7f31b",
+  "files": {
+    "interpolation/sharp-bilinear-simple.glslp": "6b08c98557454eae4131d8169bba39b714f4a117aaeaf5314a93673d7e44fd30",
+    "interpolation/shaders/sharp-bilinear-simple.glsl": "2ef97991a77492d97b71cc359fcc26c6537c1bbb644fe61b1572d0bfc46038c9"
+  }
+}

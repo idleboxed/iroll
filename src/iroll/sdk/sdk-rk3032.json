@@ -1,0 +1,298 @@
+{
+  "id": "rk3032-stock-1",
+  "triplet": "arm-buildroot-linux-gnueabihf",
+  "nor": {
+    "size": 16777216,
+    "offset": 5767168,
+    "sha256": "9c22c776e8768e0b8e1fa6a66b70b2ca4f76e6d3cee1d2fbc8207f2c87828b17"
+  },
+  "sources": {
+    "bootlin": {
+      "archive": "armv7-eabihf--glibc--stable-2018.11-1.tar.bz2",
+      "url": "https://toolchains.bootlin.com/downloads/releases/toolchains/armv7-eabihf/tarballs/armv7-eabihf--glibc--stable-2018.11-1.tar.bz2",
+      "sha256": "c8d4d3ca70442652e0e72f57ae6e878375640508f1e08de3152f63414c43b2e4",
+      "revision": "2018.11-1"
+    },
+    "libdrm": {
+      "archive": "libdrm-2.4.97.tar.bz2",
+      "url": "https://dri.freedesktop.org/libdrm/libdrm-2.4.97.tar.bz2",
+      "sha256": "77d0ccda3e10d6593398edb70b1566bfe1a23a39bd3da98ace2147692eadd123",
+      "revision": "2.4.97"
+    },
+    "mesa": {
+      "archive": "mesa-18.3.6.tar.xz",
+      "url": "https://archive.mesa3d.org/older-versions/18.x/mesa-18.3.6.tar.xz",
+      "sha256": "aaf17638dcf5a90b93b6389e152fdc9ef147768b09598f24d2c5cf482fcfc705",
+      "revision": "18.3.6"
+    },
+    "alsa": {
+      "archive": "alsa-lib-1.1.8.tar.bz2",
+      "url": "https://www.alsa-project.org/files/pub/lib/alsa-lib-1.1.8.tar.bz2",
+      "sha256": "3cdc3a93a6427a26d8efab4ada2152e64dd89140d981f6ffa003e85be707aedf",
+      "revision": "1.1.8"
+    },
+    "eudev": {
+      "archive": "eudev-3.2.7.tar.gz",
+      "url": "https://codeload.github.com/eudev-project/eudev/tar.gz/refs/tags/v3.2.7",
+      "sha256": "ce2fda4dea129bbcf824c947aab23504bcd26911481b47dbaf10646f723083a4",
+      "revision": "3.2.7"
+    },
+    "zlib": {
+      "archive": "zlib-1.2.11.tar.gz",
+      "url": "https://zlib.net/fossils/zlib-1.2.11.tar.gz",
+      "sha256": "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1",
+      "revision": "1.2.11"
+    }
+  },
+  "libraries": [
+    {
+      "source": "lib/ld-2.29.so",
+      "destination": "lib/ld-2.29.so",
+      "sha256": "d280ba39e7dc48ce019ae0403dfef9ec391d71b45aa9439f09aa1aada07bd511"
+    },
+    {
+      "source": "lib/libc-2.29.so",
+      "destination": "lib/libc-2.29.so",
+      "sha256": "d68be39e6e75f124beca8f798556dbaec2697a6755b58df9bdbe816266538944"
+    },
+    {
+      "source": "lib/libdl-2.29.so",
+      "destination": "lib/libdl-2.29.so",
+      "sha256": "4b2d389bd0db02f57f96be2a41dc190283fdd30edf459c2d89e53f29888c23b9"
+    },
+    {
+      "source": "lib/libm-2.29.so",
+      "destination": "lib/libm-2.29.so",
+      "sha256": "1183a77f5192f356925b6e30b6dd982b5770e4e334cf54ee63b1332ef31513ce"
+    },
+    {
+      "source": "lib/libpthread-2.29.so",
+      "destination": "lib/libpthread-2.29.so",
+      "sha256": "f4e4f7fbdf9a9e0be642d0ded34b5d1763026a2b050f36c4a6f2b6c659abe9fe"
+    },
+    {
+      "source": "lib/libresolv-2.29.so",
+      "destination": "lib/libresolv-2.29.so",
+      "sha256": "a73f6f0d881ec9f63e181b87f234ef048fa83d11f58c951e64fc05e472e2571f"
+    },
+    {
+      "source": "lib/librt-2.29.so",
+      "destination": "lib/librt-2.29.so",
+      "sha256": "83723e081a580f8167e810b6364a8c8e5749ff27a1f39ae86534d83bdd7d4ccc"
+    },
+    {
+      "source": "lib/libutil-2.29.so",
+      "destination": "lib/libutil-2.29.so",
+      "sha256": "b3bf45a4b4ea642cf2bd458572abd7e7efc8a65545397a3af4a3bb131d02238e"
+    },
+    {
+      "source": "usr/lib/libasound.so.2.0.0",
+      "destination": "usr/lib/libasound.so.2.0.0",
+      "sha256": "62735ccd1994c4cedefa8e6d1bceb58e8ec0330e464e6473dff0f61b8116e7c5"
+    },
+    {
+      "source": "usr/lib/libcrypto.so.1.0.0",
+      "destination": "usr/lib/libcrypto.so.1.0.0",
+      "sha256": "8c594811cd66b1f0d088cac92e5878004eac1072d8dab6f7099221a3ecb8b349"
+    },
+    {
+      "source": "usr/lib/libdrm.so.2.4.0",
+      "destination": "usr/lib/libdrm.so.2.4.0",
+      "sha256": "42574fc656e4b8e234533465e244e16b3115d8a0b344e8469738747eb55a742b"
+    },
+    {
+      "source": "usr/lib/libmali-utgard-400-r7p0-gbm.so",
+      "destination": "usr/lib/libmali-utgard-400-r7p0-gbm.so",
+      "sha256": "d0b9599caa87baf1343b314e3b25ad1dbf9d33e3f75d17ceb43ab82a40057329"
+    },
+    {
+      "source": "lib/libudev.so.1.6.3",
+      "destination": "usr/lib/libudev.so.1.6.3",
+      "sha256": "33b767d712bbd84381d46f46b133bfb8bd1df0e8c99d78b4ab5fe946a9825a63"
+    },
+    {
+      "source": "usr/lib/libz.so.1.2.11",
+      "destination": "usr/lib/libz.so.1.2.11",
+      "sha256": "49677ff79e22f1c4be061ddea407c0876d5ec442917a57096809b9366fd47eb1"
+    }
+  ],
+  "links": {
+    "lib/ld-linux-armhf.so.3": "ld-2.29.so",
+    "lib/libc.so.6": "libc-2.29.so",
+    "lib/libdl.so.2": "libdl-2.29.so",
+    "lib/libm.so.6": "libm-2.29.so",
+    "lib/libpthread.so.0": "libpthread-2.29.so",
+    "lib/libresolv.so.2": "libresolv-2.29.so",
+    "lib/librt.so.1": "librt-2.29.so",
+    "lib/libutil.so.1": "libutil-2.29.so",
+    "usr/lib/libEGL.so": "libmali.so.1",
+    "usr/lib/libGLESv2.so": "libmali.so.1",
+    "usr/lib/libasound.so": "libasound.so.2.0.0",
+    "usr/lib/libasound.so.2": "libasound.so.2.0.0",
+    "usr/lib/libcrypto.so": "libcrypto.so.1.0.0",
+    "usr/lib/libdrm.so": "libdrm.so.2.4.0",
+    "usr/lib/libdrm.so.2": "libdrm.so.2.4.0",
+    "usr/lib/libgbm.so": "libmali.so.1",
+    "usr/lib/libmali.so.1": "libmali-utgard-400-r7p0-gbm.so",
+    "usr/lib/libudev.so": "libudev.so.1.6.3",
+    "usr/lib/libudev.so.1": "libudev.so.1.6.3",
+    "usr/lib/libz.so": "libz.so.1.2.11",
+    "usr/lib/libz.so.1": "libz.so.1.2.11"
+  },
+  "header_copies": [
+    [
+      "libdrm",
+      "include/drm",
+      "libdrm"
+    ],
+    [
+      "libdrm",
+      "xf86drm.h",
+      "xf86drm.h"
+    ],
+    [
+      "libdrm",
+      "xf86drmMode.h",
+      "xf86drmMode.h"
+    ],
+    [
+      "mesa",
+      "src/gbm/main/gbm.h",
+      "gbm.h"
+    ],
+    [
+      "mesa",
+      "include/EGL",
+      "EGL"
+    ],
+    [
+      "mesa",
+      "include/KHR",
+      "KHR"
+    ],
+    [
+      "mesa",
+      "include/GLES",
+      "GLES"
+    ],
+    [
+      "mesa",
+      "include/GLES2",
+      "GLES2"
+    ],
+    [
+      "mesa",
+      "include/GLES3",
+      "GLES3"
+    ],
+    [
+      "eudev",
+      "src/libudev/libudev.h",
+      "libudev.h"
+    ],
+    [
+      "zlib",
+      "zlib.h",
+      "zlib.h"
+    ],
+    [
+      "zlib",
+      "zconf.h",
+      "zconf.h"
+    ]
+  ],
+  "headers": {
+    "libdrm/README": "65e16f76b60bf002eccc1a52c0cbeeb0c23f2ef9336383b51505820a874bf022",
+    "libdrm/amdgpu_drm.h": "6e6415f7b59439c59a73a24ee00ce9250fdc31dfc833c7b403342145d8cba68d",
+    "libdrm/drm.h": "6e2909d9623abfa6ae6f89f6ed8c894645972dfe6fa3774026cfba371e4c9fcd",
+    "libdrm/drm_fourcc.h": "5505215bd6ab74a61317dd8ff071358abb44852d1c1480dea2ecb2010eee18d8",
+    "libdrm/drm_mode.h": "502b7b19ef6f528127bd7dcd82cfa35694ed22c4e611f72af49d03d87c48d93f",
+    "libdrm/drm_sarea.h": "fd1a9f523738de090ab5018fc6776b83d18e43ad84f2a0825f6a72d6278c542a",
+    "libdrm/i915_drm.h": "78a667ae461576a7367659dbf54b5234bcac814aabadcccc11f0e3e01bef3a3e",
+    "libdrm/mach64_drm.h": "26cc4affc11d34748724a2b619fd166f162c6215837d0660271c56f4b50e44e5",
+    "libdrm/mga_drm.h": "20be6c1c32101d66c08a5741dfd7ea834221199a5921ac0e4b4698c432dafc0f",
+    "libdrm/msm_drm.h": "90305a6fae34d7d5f7f74d043523aaf5d84c94e4691219166060ad36debb53c0",
+    "libdrm/nouveau_drm.h": "857d26c965b5a5f26627caa6208d950adcbe4d445e09bd0a7fd032bbe86d80e1",
+    "libdrm/qxl_drm.h": "548e963e52309e741c413a2d1918e6f8e31399a350f98b5fd46c38155546ba6e",
+    "libdrm/r128_drm.h": "5ee8a4d8dc2f8529bc3082ae99e19b836b9241d3ec8380d6e544165c2468ce2c",
+    "libdrm/radeon_drm.h": "1dfa3a4185a75b3963eba9e4ba757cdf7aca503bea7708cf301197366faa5b8d",
+    "libdrm/savage_drm.h": "09f5f47769f6365b2e321ece9e83ce1e4d6aef6ae727dacd33d02d2fd64cb26e",
+    "libdrm/sis_drm.h": "981da0746aedd980fc2c3bb4357a400ff2b35df2e214a582b58488ffd469fa7c",
+    "libdrm/tegra_drm.h": "e62146a41c5dc860b7c170a43ada8b020dfb78d5918f1c5082f748f99ad88fff",
+    "libdrm/vc4_drm.h": "f1ffa366621a643e4f81d4b0c15db46a8405a94a45cc08708cc8a702abdb3053",
+    "libdrm/via_drm.h": "ace3ddd33488b86f8171b8622762be2816598236777b6a88afd053a89a7e22d7",
+    "libdrm/virtgpu_drm.h": "9b12c52478fc23debc245d5ba0d2ecc53198dae10eabc06bf96862c867fcef3c",
+    "libdrm/vmwgfx_drm.h": "ce48258ce281b08b4229576bedead3ab58ea0f28ff10495420c15a2758daff33",
+    "EGL/egl.h": "c3dc71d18dd4f2e4c7277876a2d6ae0b5c7f189933826e6bc0b0f8f2e2e94588",
+    "EGL/eglext.h": "c3503382556f9aef2b6da9c0a1e72fb8af78f4caca55770016f87088a135b107",
+    "EGL/eglextchromium.h": "f66b89e552ee8b8de10ef6bcad222e713969a38372bf09a50817a612ffe0cdd1",
+    "EGL/eglmesaext.h": "2bd4021be36ac658872be046db3fa462208ef1d24935430fb586b373f32b2faf",
+    "EGL/eglplatform.h": "36b8f96faeabd5678204551b7574a8650f3b3de21485d83527af3aa02258d76f",
+    "KHR/khrplatform.h": "5ca34d0d036d65fcea0bb3936e1072345d6ba3c9d5e613de6252ee7ecb9c491a",
+    "GLES/egl.h": "1ba84c782436b5e103cd1ee8060840846b96ec4727d00944cee59d1c44db0dda",
+    "GLES/gl.h": "8a0f0004d651002c3cb7f811bc4290548ebaaa3b5f380578ab3553da544ba579",
+    "GLES/glext.h": "ca8b97616c4b4fed9ef8035874f5e4c253cf628bd3bdc25d8a474fb7f0ee197d",
+    "GLES/glplatform.h": "857bf0685ecb0dddf692157ea9ef98c95e9f58b5ed0c41b26fd3fe51ed1a3624",
+    "GLES2/gl2.h": "5e285057f67e1f299402956b0894b4c3aa357f9b6169cd72c11938a822595fcc",
+    "GLES2/gl2ext.h": "1085515af184bc0c51ea1b01020f30c3bd153e733fd4a9e8b30a55729103875a",
+    "GLES2/gl2platform.h": "8f25443c4c5b3c8e702c3510f12b6ec8c23c2e3c1ca1c71bb07d148653696d9a",
+    "GLES3/gl3.h": "fca0f36065191b9da297c53d708b6ce00212dee84eec95e72a98d38b5511eabe",
+    "GLES3/gl31.h": "7fb6d736b3e2a4036f279e654230f6cd04ddfb564f5505c39036316fe40c9e94",
+    "GLES3/gl32.h": "a2cfd7d890f16f67665e01e6f514a7c75bfc702e50c8861a44d04536271fffd1",
+    "GLES3/gl3ext.h": "5730da902cec04b86f93152a219b379eabbf4eac97387f271fb8141fdfe4c5c5",
+    "GLES3/gl3platform.h": "b4595aafef1eb9b4705cf8a69e29aadb8eb8e3dd3baf8b34ab702c9174dcb549",
+    "alsa/asoundef.h": "4e89060b37eff69cf389c9897b44546777174a44ba4d6b2b9bd3f5ef383b05dd",
+    "alsa/asoundlib.h": "8d0ba13f07ec38681704d24caebb3f47ab9287c5e41c41e4e862e4ebdd7ec63b",
+    "alsa/conf.h": "5832dd3cfca1c1ad304675480fc59fa62fb41e3240f521970627c4c364c74dd4",
+    "alsa/control.h": "d5603421d3191d0c578ccc61dd2542b295c59435af78f5d20b0ab2a2a483272c",
+    "alsa/control_external.h": "94af01a9903606372ba6b222ceca39673e27f13e26e0a1f25c7e9d6edb20ad5c",
+    "alsa/error.h": "789c35b6379b0cd2b87ae22a755deb622909117075ffabd1300d2bdf7a706cdf",
+    "alsa/global.h": "ef0c7a07d0215c4002f78f61ce15767079bae0c2bd38204681bc2b0abfbd32eb",
+    "alsa/hwdep.h": "a07a8e1dc0c8fc0bbd85cd15253e9f5b6c68830a5ec95dd07deb0f93b62a5414",
+    "alsa/input.h": "c1d81c9ecb04b8120215fca4325cb3af2a64a2e3be48c26c4b3a3d3c381fd482",
+    "alsa/mixer.h": "2e169d927073e84449f236a92afcf9d090b04b824a72c356601c762ecfe873bc",
+    "alsa/mixer_abst.h": "f5c045051f4a5793d92ced073c0f61f1be538b5d776a16bb38c1df1a3efe76db",
+    "alsa/output.h": "1a429f19519cabc2fcd4d1c3b54087235e7a9f4a5394bab4a02b0c5556eaa464",
+    "alsa/pcm.h": "412fef9f59a031cb098169a62e4a11f680c1a1462c85f98cd09e0be2e841f0c0",
+    "alsa/pcm_external.h": "ccf61fa3c2cb10f8cd8e47516f38a9ee758bec4c182146450ab1a4ef25d27a65",
+    "alsa/pcm_extplug.h": "87159b959d7456d2fdd7572f76235947df59b4387e5ae59be5e8167bd9b4f580",
+    "alsa/pcm_ioplug.h": "28d1abf20ca1b2b6c4de580fba8710ade939ee795a4a9ca72d9d21cd6dc9c3b8",
+    "alsa/pcm_old.h": "b3cb1f2bb55518dc2d72bf220fd92e33562197ceb51cc069639e625cf536ac92",
+    "alsa/pcm_plugin.h": "9846260e16aae3c7975856f123ea9c59c937117b914487a375ca38e712f3953c",
+    "alsa/pcm_rate.h": "8fec3c9e28959c16302f25d6fd4405e94c9d084ee1f23a5b1fe7d182e7f7f8c0",
+    "alsa/rawmidi.h": "d902dddddcc53c1812e389cea7040ca305b5e6dd6204914e214627d84b25f202",
+    "alsa/seq.h": "a9822f8f0be9da7e700e9b49c1dac84a20a34e29d19dc3d19184719751a20b22",
+    "alsa/seq_event.h": "893feea7c087216bdb3afad9b4dbd01fcb23ad9f99c1e702ea1e24091706aea7",
+    "alsa/seq_midi_event.h": "5ced8e67e400f5dafcfb4d5d92c790b2181a9c64b33c1e0029c1dc7704959af0",
+    "alsa/seqmid.h": "050159232aa3bfc7e9886de647bdf34a879fb400d318323ae452a39bda96a724",
+    "alsa/sound/asoc.h": "9f07c6d21429f8b97174dc35d1f8a8b521acf1d7aeb3d2759b2ce6020d4fb613",
+    "alsa/sound/asound_fm.h": "e212cdde4b903661b33b1503fa69e43e1255635186779ba17396a01adc7e6d68",
+    "alsa/sound/emu10k1.h": "a6b6388e35384275bb3e880ea374739c04c902faf4814bc2aad49b1a5f78ecf0",
+    "alsa/sound/hdsp.h": "5b0b96dbc3947eccddcca26387416a0fe9016a4dcdafd4cd9c34fb0d3864d888",
+    "alsa/sound/hdspm.h": "5d576765174e2be38c315339d3222ea3aa2be6b43e5dd3936539b19114378798",
+    "alsa/sound/sb16_csp.h": "1c31442217ecfa8ee437e2262be0fb6d6b6a774aed73865b1e56a2af586760e0",
+    "alsa/sound/sscape_ioctl.h": "8fd02d38cd2a9938b3433f8d51ffcd97721ab67a998bd885012975b3a2eec1a6",
+    "alsa/sound/tlv.h": "be4747b7b8d5014c9204add175dd557ea9b476be7fd7f43b1e1dbb853d3f75e9",
+    "alsa/sound/type_compat.h": "0f7a5db7c21888ebf6471775160c976533ec88817e26d405a37a40318d1ba389",
+    "alsa/timer.h": "89e74470485445d6733a95a8b7e16da52853e20df639ed3dfcdca9ef7b72c24b",
+    "alsa/topology.h": "c9e792aad7b02c1389abb3f0c195d0ae48917f2806737abdc9a8a658bfd25338",
+    "alsa/use-case.h": "0e05aea9f19dd5bc39154c8e294cd635552da01ce2ed29496d8553801b52bfac",
+    "alsa/version.h": "f0f4bac40a66d74e8fb526a41588ccd79f6d039420e25fc33a17da549d4abb58",
+    "xf86drm.h": "a32d3e194bf6d6ab24af5f5d65eab2aff46a4a24de5f9cd51ee3782f605d580e",
+    "xf86drmMode.h": "cba478d6841f05aa0c8f2b9c9df10f67ac1286f636f69e8eaca95d8ac8a69e07",
+    "gbm.h": "d481608a84d8fbb475f66e1050bca3d9061d723d00ebe041b55133ed0cf05cc0",
+    "libudev.h": "46f12cba8f96574d9c20246fbd71f4d3925b81c4fcbc2463c810525b76703c18",
+    "zlib.h": "4ddc82b4af931ab55f44d977bde81bfbc4151b5dcdccc03142831a301b5ec3c8",
+    "zconf.h": "9c0087f31cd45fe4bfa0ca79b51df2c69d67c44f2fbb2223d7cf9ab8d971c360",
+    "sys/asoundlib.h": "2cb0b535355ac5c311b712d2136e963e349a27b1b7f75649622d077f500e7161"
+  },
+  "pkgconfig": {
+    "libdrm": "prefix=/usr\nlibdir=${prefix}/lib\nincludedir=${prefix}/include\nName: libdrm\nDescription: Local NOR link library with upstream headers; not hardware verified\nVersion: 2.4.97\nLibs: -L${libdir} -ldrm\nCflags: -I${includedir} -I${includedir}/libdrm\n",
+    "gbm": "prefix=/usr\nlibdir=${prefix}/lib\nincludedir=${prefix}/include\nName: gbm\nDescription: Local NOR link library with upstream headers; not hardware verified\nVersion: 18.3.6\nLibs: -L${libdir} -lgbm -lcrypto\nCflags: -I${includedir} \n",
+    "egl": "prefix=/usr\nlibdir=${prefix}/lib\nincludedir=${prefix}/include\nName: egl\nDescription: Local NOR link library with upstream headers; not hardware verified\nVersion: 1.4\nLibs: -L${libdir} -lEGL\nCflags: -I${includedir} \n",
+    "glesv2": "prefix=/usr\nlibdir=${prefix}/lib\nincludedir=${prefix}/include\nName: glesv2\nDescription: Local NOR link library with upstream headers; not hardware verified\nVersion: 2.0\nLibs: -L${libdir} -lGLESv2\nCflags: -I${includedir} \n",
+    "alsa": "prefix=/usr\nlibdir=${prefix}/lib\nincludedir=${prefix}/include\nName: alsa\nDescription: Local NOR link library with upstream headers; not hardware verified\nVersion: 1.1.8\nLibs: -L${libdir} -lasound\nCflags: -I${includedir} \n",
+    "libudev": "prefix=/usr\nlibdir=${prefix}/lib\nincludedir=${prefix}/include\nName: libudev\nDescription: Local NOR link library with upstream headers; not hardware verified\nVersion: 3.2.7\nLibs: -L${libdir} -ludev\nCflags: -I${includedir} \n",
+    "zlib": "prefix=/usr\nlibdir=${prefix}/lib\nincludedir=${prefix}/include\nName: zlib\nDescription: Local NOR link library with upstream headers; not hardware verified\nVersion: 1.2.11\nLibs: -L${libdir} -lz\nCflags: -I${includedir} \n"
+  }
+}
