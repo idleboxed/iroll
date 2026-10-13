@@ -49,6 +49,7 @@ class Component:
     arm_make_args: tuple[str, ...] = ()
     host_tools: tuple[str, ...] = ()
     cli_selectable: bool = True
+    default_selected: bool = True
 
     @property
     def core(self) -> bool:
@@ -68,6 +69,11 @@ COMPONENTS = (
         ),
     ),
     Component("iman", "cargo", "iman", "iman/iman", directory="iman"),
+    Component(
+        "itrampoline", "trampoline", "itrampoline", "itrampoline",
+        directory="itrampoline", platforms=("rk3032",), default_selected=False,
+        unavailable_reason="The stock-menu trampoline targets RK3032 ARMv7 only",
+    ),
     Component(
         "retro",
         "configure",
@@ -266,7 +272,10 @@ def select(platform: str, names: list[str], *, cores: bool = False) -> tuple[Com
         )
 
     if not names and not cores:
-        requested.update(component.name for component in COMPONENTS if platform in component.platforms)
+        requested.update(
+            component.name for component in COMPONENTS
+            if platform in component.platforms and component.default_selected
+        )
 
     if not requested:
         raise BuildError("No components are available for this selection")

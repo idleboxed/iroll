@@ -18,7 +18,12 @@ from iroll.components.registry import COMPONENTS, select
             {component.name for component in COMPONENTS if DEFAULT_PLATFORM in component.platforms},
             id="default-native-components",
         ),
-        pytest.param("rk3032", [], False, {component.name for component in COMPONENTS}, id="default-arm-components"),
+        pytest.param(
+            "rk3032", [], False,
+            {component.name for component in COMPONENTS if component.default_selected},
+            id="default-arm-components",
+        ),
+        pytest.param("rk3032", ["itrampoline"], False, {"itrampoline"}, id="explicit-trampoline"),
         pytest.param(DEFAULT_PLATFORM, ["iman", "iman"], False, {"iman"}, id="deduplicate-selection"),
         pytest.param(
             DEFAULT_PLATFORM, ["retro"], True,

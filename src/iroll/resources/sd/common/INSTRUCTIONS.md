@@ -12,6 +12,12 @@ system bundle and preparing games separately.
 
 ## Expected layout
 
+RK3032 bundles may also include `system/itrampoline` (a helper executable).
+Unpacking the bundle does not integrate it into the stock menu or change
+`game/games.db`. Follow the separate
+[itrampoline installation guide](https://github.com/idleboxed/itrampoline/blob/main/docs/usage.md).
+Its core is a PC build artifact, not an installed emulation core.
+
 ```text
 SD root/
 ├── INSTRUCTIONS.md                 # This guide; refreshed by init and rollout.

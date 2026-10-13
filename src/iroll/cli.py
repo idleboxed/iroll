@@ -204,7 +204,7 @@ def create_parser() -> argparse.ArgumentParser:
             "--source",
             type=Path,
             default=paths.DEFAULT_SOURCE,
-            help="Local igui/iman directories or symlinks (default: %(default)s in the current directory)",
+            help="Local igui/iman/itrampoline projects (default: %(default)s in the current directory)",
         )
         child.add_argument(
             "--bios",

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "iroll"
-version = "0.5.0"
+version = "0.6.0"
 description = "Prepare SDKs, build Idle components and initialize SD data cards without launching applications"
 readme = "README.md"
 requires-python = ">=3.12"

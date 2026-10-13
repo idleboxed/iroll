@@ -123,7 +123,7 @@ def test_rollout_accepts_arbitrary_destination(
     ) == 0
 
     assert received[0].dest == tmp_path / "ordinary-directory"
-    assert received[0].components == COMPONENTS
+    assert received[0].components == tuple(component for component in COMPONENTS if component.default_selected)
     assert received[0].no_diag is no_diag
     assert json.loads(capsys.readouterr().out)["status"] == "BUILT_AND_PUBLISHED"
     assert not any(record.levelno >= logging.WARNING for record in caplog.records)
