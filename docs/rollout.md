@@ -90,14 +90,9 @@ iroll rollout --with-core-picodrive --dest /path/to/output
 ```
 
 `--with-cores` выбирает ядра, не RetroArch: при необходимости добавьте `--with-retro`.
-`--with-itrampoline` отдельно выбирает трамплин для RK3032; без этого селектора
-его нет в обычном полном наборе. Подготовьте также checkout
-[itrampoline](https://github.com/idleboxed/itrampoline) в `--source/itrampoline`:
-сборщик использует именно этот исходный пакет, а не глобально установленную версию.
-Helper выкладывается в `system/itrampoline`, core сохраняется только в отчётах ПК
-как `itrampoline_libretro.so`; его путь указан в `components.itrampoline.artifacts`
-отчёта `result.json`. Штатное ядро и `game/games.db` не меняются.
-Для встраивания следуйте [инструкции itrampoline](https://github.com/idleboxed/itrampoline/blob/main/docs/usage.md).
+Трамплин собирает и устанавливает отдельная утилита
+[itrampoline](https://github.com/idleboxed/itrampoline/blob/main/docs/usage.md).
+Iroll не собирает его core/helper, не подменяет штатное ядро и не меняет `game/games.db`.
 
 Селекторы также доступны у `deps`. Для RK3032 передавайте платформу явно:
 

@@ -12,11 +12,12 @@ system bundle and preparing games separately.
 
 ## Expected layout
 
-RK3032 bundles may also include `system/itrampoline` (a helper executable).
-Unpacking the bundle does not integrate it into the stock menu or change
-`game/games.db`. Follow the separate
+For entry from the stock RK3032 menu, use the separate
 [itrampoline installation guide](https://github.com/idleboxed/itrampoline/blob/main/docs/usage.md).
-Its core is a PC build artifact, not an installed emulation core.
+Itrampoline builds and installs its core under the selected stock core's filename,
+installs `system/itrampoline` and adds a menu entry in `game/games.db`.
+Iroll bundles do not include either trampoline binary; unpacking a bundle does not
+integrate it into the stock menu.
 
 ```text
 SD root/

@@ -96,7 +96,7 @@ def collect_requirements(components: tuple[Component, ...], toolchain: Toolchain
     tools = {tool for component in components for tool in component.host_tools}
     libraries: set[str] = set()
 
-    if any(component.recipe in ("cargo", "trampoline") for component in components):
+    if any(component.recipe == "cargo" for component in components):
         tools.update(("cargo", "rustc"))
 
         if not toolchain.profile.cross:
@@ -130,7 +130,7 @@ def check(
         missing.append("This version builds on Linux x86_64 hosts only")
 
     valid_sdk = True
-    needs_sdk = any(component.recipe not in ("cargo", "trampoline") for component in components)
+    needs_sdk = any(component.recipe != "cargo" for component in components)
     try:
         toolchain.validate(needs_sdk=needs_sdk)
 

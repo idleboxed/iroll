@@ -36,7 +36,6 @@ from ..common.process import Runner
 from ..components.registry import Component
 from ..components.sources import SourceDownloads, prepare_source
 from .workspace import create_staging_tree, reuse_cached_build
-from .trampoline import build_trampoline, resolve_trampoline_sources
 
 logger = logging.getLogger(__name__)
 
@@ -277,9 +276,6 @@ class Builder:
             if component.recipe == "cargo":
                 resolve_cargo_sources(options.source_root, component)
 
-            elif component.recipe == "trampoline":
-                resolve_trampoline_sources(options.source_root)
-
             elif component.source is None:
                 raise BuildError(f"Missing pinned source for {component.name}")
 
@@ -367,14 +363,6 @@ class Builder:
 
     def build_component(self, component: Component, payload: Path, logs: Path) -> dict[str, Any]:
         options = self.options
-
-        if component.recipe == "trampoline":
-            logger.info("Building %s ...", component.name)
-            return build_trampoline(
-                options.source_root, payload, logs,
-                options.build_dir / paths.OUR_BUILD_DIR / options.toolchain.profile.name,
-                runner=self.runner,
-            )
 
         if component.source:
             archive = self.sources.obtain(component.source)

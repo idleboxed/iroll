@@ -91,6 +91,7 @@ def test_arm_list_includes_igui(tmp_path: Path, capsys: pytest.CaptureFixture[st
     igui = next(row for row in document["components"] if row["name"] == "igui")
     assert igui["supported"]
     assert igui["reason"] == ""
+    assert all(row["name"] != "itrampoline" for row in document["components"])
 
 
 @pytest.mark.parametrize("no_diag", [False, True])
@@ -123,7 +124,7 @@ def test_rollout_accepts_arbitrary_destination(
     ) == 0
 
     assert received[0].dest == tmp_path / "ordinary-directory"
-    assert received[0].components == tuple(component for component in COMPONENTS if component.default_selected)
+    assert received[0].components == tuple(component for component in COMPONENTS if "rk3032" in component.platforms)
     assert received[0].no_diag is no_diag
     assert json.loads(capsys.readouterr().out)["status"] == "BUILT_AND_PUBLISHED"
     assert not any(record.levelno >= logging.WARNING for record in caplog.records)
@@ -162,10 +163,11 @@ def test_removed_save_migration_is_rejected_without_changing_files(tmp_path: Pat
     assert legacy.read_bytes() == b"synthetic old state"
 
 
-def test_unknown_flags_use_argparse_exit_code() -> None:
+@pytest.mark.parametrize("flag", ["--with-missing", "--with-itrampoline"])
+def test_unknown_flags_use_argparse_exit_code(flag: str) -> None:
 
     with pytest.raises(SystemExit, match="^2$") as error:
-        cli.main(["rollout", "--with-missing"])
+        cli.main(["rollout", flag])
 
     assert error.value.code == 2
 

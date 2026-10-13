@@ -20,10 +20,9 @@ from iroll.components.registry import COMPONENTS, select
         ),
         pytest.param(
             "rk3032", [], False,
-            {component.name for component in COMPONENTS if component.default_selected},
+            {component.name for component in COMPONENTS if "rk3032" in component.platforms},
             id="default-arm-components",
         ),
-        pytest.param("rk3032", ["itrampoline"], False, {"itrampoline"}, id="explicit-trampoline"),
         pytest.param(DEFAULT_PLATFORM, ["iman", "iman"], False, {"iman"}, id="deduplicate-selection"),
         pytest.param(
             DEFAULT_PLATFORM, ["retro"], True,
@@ -51,10 +50,11 @@ def test_component_selection(platform: str, names: list[str], cores: bool, expec
     assert {component.name for component in selected} == expected
 
 
-def test_unknown_component_selection_is_rejected() -> None:
+@pytest.mark.parametrize("name", ["missing", "itrampoline"])
+def test_unknown_component_selection_is_rejected(name: str) -> None:
 
-    with pytest.raises(BuildError, match="Unknown components: missing"):
-        select(DEFAULT_PLATFORM, ["missing"])
+    with pytest.raises(BuildError, match=f"Unknown components: {name}"):
+        select(DEFAULT_PLATFORM, [name])
 
 
 def test_n64_recipe_refuses_native_selection_and_keeps_verified_source_pin() -> None:
