@@ -142,6 +142,15 @@ evdev profiles in the directory, not a particular board model; at least one
 evdev profile must be declared, even if conflicts leave none active.
 These settings control IGUI, not RetroArch game inputs.
 
+The `045e:028e` profile matches `Microsoft X-Box 360 pad`; it assigns the D-pad
+and left stick to IGUI navigation. The `0079:181c` profile matches
+`ShanWan Wireless Gamepad` and uses the left stick for directions, without a
+D-pad assignment. Their RetroArch autoconfig files are in `system/retroarch/padconf/`.
+Wireless `0079:181c` uses the left stick for RetroPad directions too; its D-pad
+is not assigned. Both game profiles include the sticks, shoulders, triggers,
+stick clicks, Back/Start and Guide. IGUI ignores those extra controls except
+Back and Start. Controller names and IDs, not Xbox-shaped cases, select profiles.
+
 There is no `iroll.json`, `.iroll.lock` or collected `licenses/` directory on the
 card. Source notices and distribution obligations remain with their components.
 

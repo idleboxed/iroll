@@ -1,4 +1,4 @@
-"""Board-tested RetroArch joypad autoconfiguration profiles.
+"""Device-specific RetroArch joypad autoconfiguration profiles.
 
 SPDX-License-Identifier: BSD-3-Clause
 """
@@ -12,6 +12,8 @@ AUTOCONFIG_DIR = "retroarch/padconf"
 PROFILES = (
     "0810-0001.cfg",
     "20bc-5500.cfg",
+    "045e-028e.cfg",
+    "0079-181c.cfg",
 )
 
 

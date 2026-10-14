@@ -460,6 +460,8 @@ def test_confirmation_applies_to_each_changed_release_file_but_not_user_data(
         "system/igui/controls/2563-0555-evdev.json",
         "system/retroarch/padconf/0810-0001.cfg",
         "system/retroarch/padconf/20bc-5500.cfg",
+        "system/retroarch/padconf/045e-028e.cfg",
+        "system/retroarch/padconf/0079-181c.cfg",
     ]
 
     names.extend({"rk3032": ["system/iman/iman.json"], "linux-x86_64": []}[platform])

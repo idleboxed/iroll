@@ -63,7 +63,9 @@ resources/sd/
 │   └── system/retroarch/
 │       ├── padconf/
 │       │   ├── 0810-0001.cfg
-│       │   └── 20bc-5500.cfg
+│       │   ├── 20bc-5500.cfg
+│       │   ├── 045e-028e.cfg
+│       │   └── 0079-181c.cfg
 │       └── shaders/libretro/interpolation/
 │           ├── sharp-bilinear-simple.glslp
 │           └── shaders/sharp-bilinear-simple.glsl
