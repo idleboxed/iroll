@@ -10,6 +10,7 @@ from . import shaders
 
 
 def build_runtime_manifest(components: dict[str, Any], profile: Profile) -> dict[str, Any]:
+    """Describe installed emulator paths and platform-scoped defaults for iman."""
     def build_entry(record: dict[str, Any]) -> dict[str, str]:
         return {"path": record["binary"]}
 

@@ -42,6 +42,7 @@ COMMAND_DIRS = {
 
 
 def read_sudo_owner() -> tuple[int, int] | None:
+    """Read the original user's numeric identity, if the command was elevated through sudo."""
 
     if os.geteuid() != 0:
         return None
@@ -59,6 +60,7 @@ def read_sudo_owner() -> tuple[int, int] | None:
 
 
 def resolve_command_executable() -> str:
+    """Locate the installed iroll command for explicit card-init elevation."""
     invoked = sys.argv[0]
     path = f"{Path(invoked).absolute()}" if "/" in invoked else shutil.which(invoked)
 
@@ -72,6 +74,7 @@ def resolve_command_executable() -> str:
 
 
 def elevate_card_init(args: argparse.Namespace, argv: list[str]) -> None:
+    """Replace the process with sudo only for an interactive, non-dry-run card initialization."""
 
     if args.command != "card" or args.card_command != "init" or args.dry_run or os.geteuid() == 0:
         return
@@ -89,6 +92,7 @@ def elevate_card_init(args: argparse.Namespace, argv: list[str]) -> None:
 
 
 def add_logs_dir(parser: argparse.ArgumentParser) -> None:
+    """Add the shared operation-report directory argument to a parser."""
     parser.add_argument(
         "--logs_dir",
         type=Path,
@@ -98,12 +102,14 @@ def add_logs_dir(parser: argparse.ArgumentParser) -> None:
 
 
 def get_command_log_root(args: argparse.Namespace) -> Path:
+    """Choose the report subdirectory for the selected command."""
     subcommand = getattr(args, f"{args.command}_command", None)
     return args.logs_dir.absolute() / COMMAND_DIRS[(args.command, subcommand)]
 
 
 @contextmanager
 def configure_cli_logging(verbose: bool) -> Iterator[None]:
+    """Temporarily configure iroll diagnostics without replacing the caller's handlers."""
     package = logging.getLogger("iroll")
     handler = None
     old_level = package.level
@@ -127,6 +133,7 @@ def configure_cli_logging(verbose: bool) -> Iterator[None]:
 
 
 def create_parser() -> argparse.ArgumentParser:
+    """Build the parser for the agreed iroll commands and options."""
     result = argparse.ArgumentParser(
         prog="iroll",
         description="Prepare SDKs, build system components or initialize an SD data card; never launch apps.",
@@ -244,10 +251,12 @@ def create_parser() -> argparse.ArgumentParser:
 
 
 def output_json(value: object) -> None:
+    """Write machine-readable JSON to stdout without diagnostic messages."""
     sys.stdout.write(json.dumps(value, indent=2) + "\n")
 
 
 def output_dependency_report(report: dependencies.DependencyReport, *, json_output: bool) -> int:
+    """Present missing host dependencies and return a suitable exit code."""
 
     if json_output:
         output_json({**asdict(report), "ready": report.ready})
@@ -267,6 +276,7 @@ def output_dependency_report(report: dependencies.DependencyReport, *, json_outp
 
 
 def confirm(prompt: str, *, terminal_error: str) -> bool:
+    """Ask an interactive yes/no question; non-interactive input is an error."""
 
     if not sys.stdin.isatty():
         raise BuildError(terminal_error)
@@ -277,6 +287,7 @@ def confirm(prompt: str, *, terminal_error: str) -> bool:
 
 
 def confirm_replace(path: Path) -> bool:
+    """Ask permission before replacing an existing destination file."""
     display_path = f"{path}"
     return confirm(
         f"Replace existing file {display_path!r}? [y/N]: ",
@@ -285,6 +296,7 @@ def confirm_replace(path: Path) -> bool:
 
 
 def confirm_card(plan: CardPlan) -> bool:
+    """Describe the destructive card plan and ask for explicit erasure approval."""
     mounted = "".join(f"Mounted path to unmount: {path}\n" for path in plan.target.mountpoints)
     return confirm(
         "\nWARNING: ALL DATA ON THE SELECTED CARD WILL BE LOST.\n"
@@ -300,6 +312,7 @@ def confirm_card(plan: CardPlan) -> bool:
 
 @contextmanager
 def handle_cancellation_signals() -> Iterator[None]:
+    """Translate SIGTERM to cancellation and restore the previous handler on exit."""
     def cancel(signum: int, frame: object) -> None:
         signal.signal(signal.SIGTERM, signal.SIG_IGN)
         raise KeyboardInterrupt
@@ -312,6 +325,7 @@ def handle_cancellation_signals() -> Iterator[None]:
 
 
 def initialize_card(args: argparse.Namespace) -> int:
+    """Run the approved card-init scenario and present its result."""
     initializer = CardInitializer()
     owner = read_sudo_owner()
 
@@ -341,6 +355,7 @@ def initialize_card(args: argparse.Namespace) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Dispatch a command, present expected failures and return its exit code."""
     arguments = list(sys.argv[1:] if argv is None else argv)
     args = create_parser().parse_args(arguments)
 

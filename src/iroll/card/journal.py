@@ -24,6 +24,7 @@ def _validate_storage(path: Path, target: CardTarget, mountinfo: str) -> None:
 
 
 def validate_journal_root(path: Path, target: CardTarget, mountinfo: str) -> None:
+    """Require a safe PC directory outside the card for operation reports."""
     require(path.is_absolute(), "Journal root must be absolute and on the PC")
     reject_symlinks(path)
     existing = path
@@ -37,6 +38,7 @@ def validate_journal_root(path: Path, target: CardTarget, mountinfo: str) -> Non
 
 
 def validate_journal_parent(path: Path, target: CardTarget, mountinfo: str) -> None:
+    """Require a new journal path in an existing safe PC directory."""
     require(path.is_absolute(), "Journal path must be absolute and on the PC")
     reject_symlinks(path)
     require(not path.exists(), "Journal already exists; use a new path")
@@ -75,6 +77,7 @@ class CardJournal:
         return self
 
     def record_event(self, phase: str, **fields: object) -> None:
+        """Append and synchronize an operation event before returning."""
         assert self.stream is not None
         self.stream.write(json.dumps({"format": "IROLL-CARD-01", "phase": phase, **fields}) + "\n")
         self.stream.flush()

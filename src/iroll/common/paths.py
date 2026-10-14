@@ -50,6 +50,7 @@ def get_sdk_pending_path(sdk: Path) -> Path:
 
 
 def prepare_save_directories(dest: Path) -> None:
+    """Create the checked game-state and SaveRAM directories in the destination."""
 
     for relative in SAVE_DIRECTORIES:
         ensure_directory(dest / relative)

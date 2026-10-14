@@ -32,6 +32,7 @@ MAX_MEMBERS = 100_000
 
 
 def verify(path: Path, source: Source) -> None:
+    """Check a bounded source archive against its pinned SHA-256."""
     validate_regular_file(path, limit=MAX_ARCHIVE)
 
     with path.open("rb") as stream:
@@ -42,6 +43,7 @@ def verify(path: Path, source: Source) -> None:
 
 
 def download(url: str, target: Path) -> None:
+    """Download an HTTPS source into a new file without replacing an existing archive."""
 
     if not url.startswith("https://"):
         raise BuildError("Source downloads require HTTPS")
@@ -86,6 +88,7 @@ class SourceDownloads:
         self.fetch = fetch
 
     def obtain(self, source: Source) -> Path:
+        """Reuse a verified local archive or download and verify the pinned source."""
         archive_name = parse_relative_path(source.archive)
 
         if len(archive_name.parts) != 1:
@@ -155,6 +158,7 @@ def _validate_archive_members(archive: tarfile.TarFile) -> tuple[str, list[tarfi
 
 
 def extract(archive_path: Path, destination: Path, source: Source) -> None:
+    """Verify an archive and extract it into a new checked directory, enforcing safe member paths."""
     verify(archive_path, source)
     reject_symlinks(destination)
 

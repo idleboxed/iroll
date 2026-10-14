@@ -41,6 +41,7 @@ ConfirmReplace = Callable[[Path], bool]
 
 
 def load_json(path: Path) -> dict[str, Any]:
+    """Read a bounded checked manifest file and require a JSON object."""
     validate_regular_file(path, limit=1024 * 1024)
     try:
         value = json.loads(path.read_bytes())
@@ -71,6 +72,7 @@ def read_file_state(path: Path) -> tuple[int, ...] | None:
 
 
 def collect_existing_components(system: Path, profile: Profile, replacing: frozenset[str]) -> dict[str, Any]:
+    """Read components that a partial update must retain from the existing runtime manifest."""
     state = system / paths.RUNTIME_MANIFEST
     result: dict[str, Any] = {}
     cores: dict[str, Any] = {}
@@ -172,6 +174,7 @@ def collect_existing_components(system: Path, profile: Profile, replacing: froze
 
 
 def validate_destination(dest: Path, profile: Profile, components: tuple[Component, ...]) -> None:
+    """Reject unsafe destination paths and leftovers from an unfinished publication."""
     validate_directory(dest)
     validate_directory(dest / paths.SYSTEM_DIR)
 
@@ -197,6 +200,7 @@ def publish(
     payload: Path, dest: Path, records: dict[str, Any], profile: Profile,
     *, confirm_replace: ConfirmReplace | None = None, bios_files: dict[str, str] | None = None,
 ) -> tuple[str, ...]:
+    """Publish selected files with checked replacements; return names of installed components."""
     reject_symlinks(dest)
     dest.mkdir(parents=True, exist_ok=True)
 

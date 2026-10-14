@@ -81,6 +81,7 @@ class SdkOptions:
 
 
 def load_recipe() -> dict[str, Any]:
+    """Read the packaged, pinned RK3032 SDK recipe."""
     return json.loads(files("iroll.sdk").joinpath("sdk-rk3032.json").read_text(encoding="utf-8"))
 
 
@@ -96,6 +97,7 @@ class SdkPreparer:
         self.sources = sources
 
     def validate_inputs(self) -> None:
+        """Require supported host architecture and safe absolute input and output paths."""
         options = self.options
 
         if platform.system() != "Linux" or platform.machine() not in ("x86_64", "AMD64"):
@@ -137,9 +139,11 @@ class SdkPreparer:
 
     @property
     def state_path(self) -> Path:
+        """Return the SDK provenance file path beside the SDK directory."""
         return self.options.sdk.with_name(f".{self.options.sdk.name}.iroll-sdk.json")
 
     def run(self) -> dict[str, Any]:
+        """Prepare and validate the SDK from pinned sources and a local NOR file."""
         self.validate_inputs()
         # Validate links before resolving: normalization must not hide a forbidden alias.
         self.options = SdkOptions(
@@ -280,11 +284,13 @@ class SdkPreparer:
                 raise
 
     def create_toolchain(self, sdk: Path, recipe: dict[str, Any]) -> Toolchain:
+        """Describe the cross toolchain and sysroot at the supplied SDK path."""
         triplet = recipe["triplet"]
         prefix = sdk / "bin" / f"{triplet}-"
         return Toolchain(PROFILES["rk3032"], sdk / triplet / "sysroot", f"{prefix}")
 
     def build_environment(self, sdk: Path, recipe: dict[str, Any]) -> dict[str, str]:
+        """Prepare a controlled SDK environment without caller-injected shell or compiler settings."""
         env = self.create_toolchain(sdk, recipe).build_environment()
 
         for name in (
@@ -297,6 +303,7 @@ class SdkPreparer:
         return env
 
     def relocate(self, sdk: Path, recipe: dict[str, Any], report: Path) -> None:
+        """Run the SDK's relocation script and verify its recorded location."""
         script = sdk / "relocate-sdk.sh"
         validate_regular_file(script)
         self.runner.run(
@@ -309,6 +316,7 @@ class SdkPreparer:
             raise BuildError("SDK relocation did not record its actual location")
 
     def install_nor(self, sdk: Path, extracted: Path, fd: int, recipe: dict[str, Any], report: Path) -> None:
+        """Extract the specified libraries from the held NOR file into the SDK sysroot."""
         self.runner.run(
             ["unsquashfs", "-no-progress", "-no-xattrs", "-no-wildcards", "-processors", "1",
              "-d", f"{extracted}", "-o", f"{recipe["nor"]["offset"]}", f"/proc/self/fd/{fd}",
@@ -350,6 +358,7 @@ class SdkPreparer:
     def install_headers(
         self, sdk: Path, extracted: dict[str, Path], recipe: dict[str, Any], report: Path,
     ) -> None:
+        """Install the recipe's checked header trees into the SDK sysroot."""
         sysroot = self.create_toolchain(sdk, recipe).sysroot
         include = sysroot / "usr/include"
 
@@ -380,6 +389,7 @@ class SdkPreparer:
         )
 
     def check_payload(self, sdk: Path, recipe: dict[str, Any]) -> None:
+        """Validate installed headers, libraries and links against the pinned recipe."""
         validate_sdk_links(sdk)
         sysroot = self.create_toolchain(sdk, recipe).sysroot
 
@@ -407,6 +417,7 @@ class SdkPreparer:
                 raise BuildError(f"SDK linker alias mismatch: {name}")
 
     def probe(self, sdk: Path, work: Path, recipe: dict[str, Any], report: Path, *, discover: bool) -> None:
+        """Compile and inspect a toolchain probe, optionally checking SDK discovery."""
         toolchain = self.create_toolchain(sdk, recipe)
 
         if discover:

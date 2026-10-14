@@ -31,8 +31,10 @@ def _parse_mountinfo(text: str) -> list[tuple[str, str, str]]:
 
 
 def parse_mount_records(text: str) -> list[tuple[str, str]]:
+    """Decode mountinfo into device-number and mountpoint pairs."""
     return [(number, mountpoint) for number, mountpoint, _ in _parse_mountinfo(text)]
 
 
 def get_filesystem_types(text: str, device_number: str) -> tuple[str, ...]:
+    """Return filesystem types mounted on the selected device numbers."""
     return tuple(filesystem for number, _, filesystem in _parse_mountinfo(text) if number == device_number)

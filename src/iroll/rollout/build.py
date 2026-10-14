@@ -62,6 +62,7 @@ class BuildOptions:
 
 
 def resolve_cargo_sources(root: Path, component: Component) -> Path:
+    """Resolve a local component and validate its Cargo manifest and lockfile."""
     # Local project links are an authoring convenience, not an installation boundary.
     # Resolve them once; output and build-data paths still reject every symlink.
     source = (root / parse_relative_path(component.directory)).resolve(strict=True)
@@ -90,6 +91,7 @@ def build_commands(
     cargo_target: Path,
     payload: Path,
 ) -> tuple[list[list[str]], Path]:
+    """Return the component's build commands and expected artifact path."""
 
     if component.recipe == "cargo":
         argv = [
@@ -171,6 +173,7 @@ class Builder:
         )
 
     def validate_inputs(self) -> None:
+        """Validate build options, paths and component selection before acquiring resources."""
         options = self.options
 
         if not 1 <= options.jobs <= 256:
@@ -288,6 +291,7 @@ class Builder:
         deploy.validate_destination(options.dest, options.toolchain.profile, options.components)
 
     def run(self) -> Path:
+        """Build selected components, publish their files and return the operation report directory."""
         options = self.options
         logger.info("Platform: %s", options.toolchain.profile.name)
         self.validate_inputs()
@@ -362,6 +366,7 @@ class Builder:
         return log_dir
 
     def build_component(self, component: Component, payload: Path, logs: Path) -> dict[str, Any]:
+        """Build one component into the staging payload and return its provenance and file records."""
         options = self.options
 
         if component.source:

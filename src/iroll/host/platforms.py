@@ -89,6 +89,7 @@ class Toolchain:
     prefix: str = DEFAULT_CROSS_PREFIX
 
     def validate(self, *, needs_sdk: bool = True) -> None:
+        """Check whether SDK settings are appropriate and complete for this platform."""
 
         if not self.profile.cross:
 
@@ -112,14 +113,17 @@ class Toolchain:
 
     @property
     def cc(self) -> str:
+        """Return the native or cross C compiler command."""
         return f"{self.prefix}gcc" if self.profile.cross else "cc"
 
     @property
     def cxx(self) -> str:
+        """Return the native or cross C++ compiler command."""
         return f"{self.prefix}g++" if self.profile.cross else "c++"
 
     @property
     def ar(self) -> str:
+        """Return the native or cross archive-tool command."""
         return f"{self.prefix}ar" if self.profile.cross else "ar"
 
     def fingerprint(self, runner: Runner, *, cwd: Path, env: dict[str, str]) -> str:
@@ -187,6 +191,7 @@ class Toolchain:
         return hashlib.sha256(json.dumps([probes, fingerprint_paths(roots)]).encode()).hexdigest()
 
     def build_environment(self, *, rust: bool = False) -> dict[str, str]:
+        """Prepare a build environment without leaking host headers or caller target flags."""
         env = dict(os.environ)
         # Do not accidentally use host headers, caller's target, or native CPU flags.
 

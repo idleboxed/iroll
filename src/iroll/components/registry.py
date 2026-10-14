@@ -52,6 +52,7 @@ class Component:
 
     @property
     def core(self) -> bool:
+        """Report whether this component is a libretro core for game platforms."""
         return bool(self.game_platforms)
 
 
@@ -247,6 +248,7 @@ COMPONENTS = (
 
 
 def select(platform: str, names: list[str], *, cores: bool = False) -> tuple[Component, ...]:
+    """Resolve requested components for a platform, optionally including its cores."""
     registry = {component.name: component for component in COMPONENTS}
     requested = set(names)
     unknown = requested - registry.keys()

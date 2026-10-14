@@ -21,6 +21,7 @@ MAX_ARTIFACT = 256 * 1024 * 1024
 
 
 def create_report(root: Path, *, owner: tuple[int, int] | None = None) -> Path:
+    """Create a private operation report directory, optionally owned by the original user."""
     reject_symlinks(root)
     missing = []
     directory = root
@@ -44,6 +45,7 @@ def create_report(root: Path, *, owner: tuple[int, int] | None = None) -> Path:
 
 
 def parse_relative_path(value: str) -> Path:
+    """Validate a relative path without parent traversal, empty parts or control characters."""
 
     if not value or "\\" in value or any(ord(char) < 32 for char in value):
         raise BuildError(f"Invalid relative path: {value!r}")
@@ -57,6 +59,7 @@ def parse_relative_path(value: str) -> Path:
 
 
 def reject_symlinks(path: Path) -> None:
+    """Reject symbolic links anywhere in the supplied path."""
 
     for item in (path, *path.parents):
 
@@ -65,6 +68,7 @@ def reject_symlinks(path: Path) -> None:
 
 
 def validate_regular_file(path: Path, *, limit: int = MAX_ARTIFACT) -> None:
+    """Require a bounded regular file reached without symbolic links."""
     reject_symlinks(path)
     metadata = path.stat()
 
@@ -73,6 +77,7 @@ def validate_regular_file(path: Path, *, limit: int = MAX_ARTIFACT) -> None:
 
 
 def calculate_sha256(path: Path) -> str:
+    """Hash a checked regular file without loading it entirely into memory."""
     validate_regular_file(path)
 
     with path.open("rb") as stream:
@@ -103,6 +108,7 @@ def stage_resources(payload: Path, resources: Mapping[str, bytes], *, resource_k
 
 
 def sync_directory(path: Path) -> None:
+    """Synchronize directory entries using a held, no-follow directory FD."""
     fd = os.open(path, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
     try:
         os.fsync(fd)
@@ -126,6 +132,7 @@ def read_cached_json(path: Path) -> Any:
 
 
 def write_json(path: Path, value: Any, *, owner: tuple[int, int] | None = None) -> None:
+    """Create a new JSON file, optionally changing its owner, without replacing existing data."""
     # Callers own the staging/report directory or have invalidated the previous cache state.
 
     with path.open("x", encoding="utf-8") as stream:
@@ -229,6 +236,7 @@ def _format_filename_stamp(timestamp: int) -> str:
 
 
 def create_report_directory(parent: Path) -> Path:
+    """Create a private timestamped report directory, avoiding name collisions."""
     stamp = _format_filename_stamp(int(time()))
     collision = 0
 
@@ -244,6 +252,7 @@ def create_report_directory(parent: Path) -> Path:
 
 
 def validate_directory(path: Path) -> None:
+    """Reject symbolic links and file conflicts in a directory path."""
     reject_symlinks(path)
 
     for item in (path, *path.parents):
@@ -253,6 +262,7 @@ def validate_directory(path: Path) -> None:
 
 
 def ensure_directory(path: Path) -> None:
+    """Create missing checked directories and synchronize their parent entries."""
     validate_directory(path)
 
     if not path.exists():

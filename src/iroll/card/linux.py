@@ -56,16 +56,19 @@ TOOL_PATH = CARD_TOOL_PATH
 
 
 def format_device_number(number: int) -> str:
+    """Format a Linux device number as major:minor."""
     return f"{os.major(number)}:{os.minor(number)}"
 
 
 def read_ioctl_value(fd: int, request: int, fmt: str) -> int:
+    """Read one integer value from the held device using the requested ioctl."""
     data = bytearray(struct.calcsize(fmt))
     fcntl.ioctl(fd, request, data, True)
     return struct.unpack(fmt, data)[0]
 
 
 def read_sysfs_number(path: Path) -> int:
+    """Read a sysfs integer and report malformed contents as a card error."""
     try:
         return int(path.read_text())
 
@@ -74,6 +77,7 @@ def read_sysfs_number(path: Path) -> int:
 
 
 def parse_command_document(text: str, *, command: str) -> dict[str, Any]:
+    """Decode a system command's JSON output and require an object."""
     try:
         document = json.loads(text)
 
@@ -85,6 +89,7 @@ def parse_command_document(text: str, *, command: str) -> dict[str, Any]:
 
 
 def validate_listing(disk: dict[str, Any], device: str, diskseq: int) -> CardTarget:
+    """Validate lsblk output and return the removable card's checked identity."""
     validate_device_name(device)
     require(isinstance(disk, dict), "Invalid lsblk disk entry")
     require(disk.get("path") == device and disk.get("type") == "disk", "Expected one whole disk")
@@ -135,6 +140,7 @@ def validate_listing(disk: dict[str, Any], device: str, diskseq: int) -> CardTar
 
 
 def validate_table(document: dict[str, Any], plan: CardPlan) -> None:
+    """Require the read-back GPT layout to match the approved plan."""
     require(isinstance(document, dict), "Invalid partition table document")
     table = document.get("partitiontable", {})
     require(isinstance(table, dict), "Read-back GPT layout does not match the plan")
@@ -162,9 +168,11 @@ class LinuxCardBackend:
         self.runner = runner or Runner()
 
     def read_mountinfo(self) -> str:
+        """Read the current process's Linux mount table."""
         return Path("/proc/self/mountinfo").read_text()
 
     def run_command(self, argv: list[str], *, fd: int | None = None, input_data: str | None = None) -> str:
+        """Run a known system tool in a controlled environment, optionally passing a held FD."""
         executable = shutil.which(argv[0], path=TOOL_PATH)
         require(executable is not None, f"Missing system tool: {argv[0]}")
         return self.runner.run(
@@ -174,6 +182,7 @@ class LinuxCardBackend:
         ).stdout
 
     def inspect(self, device: str) -> CardTarget:
+        """Read and validate whole-card identity without writing to it."""
         require(sys.platform == "linux" and struct.calcsize("P") == 8, "card init requires 64-bit Linux")
         validate_device_name(device)
         before = os.lstat(device)
@@ -219,6 +228,7 @@ class LinuxCardBackend:
         return target
 
     def validate_initialization(self, target: CardTarget, journal: Path) -> None:
+        """Check host privileges, tools and journal storage before requesting erasure approval."""
         require(os.geteuid() == 0, "Writing requires root; run the explicit command in your own terminal")
         require(
             os.stat("/proc/self/ns/mnt").st_ino == os.stat("/proc/1/ns/mnt").st_ino,
@@ -239,10 +249,12 @@ class LinuxCardBackend:
         validate_journal_parent(journal, target, self.read_mountinfo())
 
     def list_mounted_paths(self, target: CardTarget) -> tuple[str, ...]:
+        """List mountpoints belonging to the selected disk and its partitions."""
         records = parse_mount_records(self.read_mountinfo())
         return tuple(dict.fromkeys(path for number, path in records if number in target.device_numbers))
 
     def unmount(self, target: CardTarget) -> tuple[str, ...]:
+        """Recheck identity and unmount the card's filesystems from deepest paths first."""
         validate_same_card(target, self.inspect(target.device))
         mounted = tuple(sorted(
             self.list_mounted_paths(target), key=lambda path: (path.count("/"), path), reverse=True,
@@ -260,6 +272,7 @@ class LinuxCardBackend:
 
     @contextmanager
     def open(self, target: CardTarget) -> Iterator[int]:
+        """Hold an exclusive checked card FD until context exit."""
         fd = os.open(target.device, os.O_RDWR | os.O_EXCL | os.O_NOFOLLOW | os.O_NONBLOCK | os.O_CLOEXEC)
         try:
             fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -270,6 +283,7 @@ class LinuxCardBackend:
             os.close(fd)
 
     def guard(self, fd: int, target: CardTarget) -> None:
+        """Verify the held disk FD, path, geometry and connection sequence still match."""
         info = os.fstat(fd)
         path = os.lstat(target.device)
         require(
@@ -285,6 +299,7 @@ class LinuxCardBackend:
         )
 
     def partition(self, fd: int, plan: CardPlan) -> None:
+        """Write the approved GPT and clear stale boot code in the alignment gap."""
         self.guard(fd, plan.target)
         self.run_command([
             "sfdisk", "--no-reread", "--no-tell-kernel", "--wipe", "always",
@@ -298,6 +313,7 @@ class LinuxCardBackend:
         self.verify_table(fd, plan)
 
     def verify_table(self, fd: int, plan: CardPlan) -> None:
+        """Verify the held disk's partition table against the approved plan."""
         self.guard(fd, plan.target)
         self.run_command(["sfdisk", "--verify", f"/proc/self/fd/{fd}"], fd=fd)
         document = parse_command_document(
@@ -307,6 +323,7 @@ class LinuxCardBackend:
 
     @contextmanager
     def open_volume(self, disk_fd: int, plan: CardPlan, journal: CardJournal) -> Iterator["CardVolume"]:
+        """Expose only the planned partition through a private loop device until context exit."""
         control = os.open("/dev/loop-control", os.O_RDWR | os.O_CLOEXEC | os.O_NOFOLLOW)
         try:
             number = fcntl.ioctl(control, LOOP_CTL_GET_FREE)
@@ -344,6 +361,7 @@ class LinuxCardBackend:
                 os.close(fd)
 
     def finish(self, fd: int, plan: CardPlan) -> None:
+        """Synchronize the disk, flush its cache and recheck its identity and GPT."""
         self.guard(fd, plan.target)
         os.fsync(fd)
         fcntl.ioctl(fd, BLKFLSBUF)
@@ -360,6 +378,7 @@ class CardVolume:
         self.plan = plan
 
     def guard(self) -> None:
+        """Verify the private loop device still maps the planned range of the held disk."""
         self.backend.guard(self.disk_fd, self.plan.target)
         data = bytearray(LOOP_INFO.size)
         fcntl.ioctl(self.fd, LOOP_GET_STATUS64, data, True)
@@ -374,6 +393,7 @@ class CardVolume:
         require(os.lstat(self.path).st_rdev == os.fstat(self.fd).st_rdev, "Loop device path changed")
 
     def format(self) -> None:
+        """Create exFAT on the checked, unmounted partition and synchronize it."""
         self.guard()
         number = format_device_number(os.fstat(self.fd).st_rdev)
         require(
@@ -385,6 +405,7 @@ class CardVolume:
         self.guard()
 
     def copy_instructions(self, content: bytes, journal: CardJournal) -> str:
+        """Mount the volume, create save directories and instructions, verify them and unmount."""
         self.guard()
         mountpoint = Path(tempfile.mkdtemp(prefix="iroll-card-", dir="/run"))
         number = format_device_number(os.fstat(self.fd).st_rdev)

@@ -53,6 +53,7 @@ class DependencyReport:
 
     @property
     def ready(self) -> bool:
+        """Report whether every required host dependency is available."""
         return not self.missing
 
 
@@ -61,6 +62,7 @@ def _format_status(name: str, *, found: bool) -> str:
 
 
 def is_debian_host() -> bool:
+    """Report whether the host identifies itself as Debian or Ubuntu."""
     try:
         os_release = paths.OS_RELEASE.read_text(encoding="utf-8")
 
@@ -93,6 +95,7 @@ def check_card() -> DependencyReport:
 
 
 def collect_requirements(components: tuple[Component, ...], toolchain: Toolchain) -> tuple[set[str], set[str]]:
+    """Collect host tools and libraries required by the selected component recipes."""
     tools = {tool for component in components for tool in component.host_tools}
     libraries: set[str] = set()
 
@@ -124,6 +127,7 @@ def check(
     *,
     cwd: Path,
 ) -> DependencyReport:
+    """Probe build prerequisites and return missing dependencies with installation guidance."""
     checks, missing, instructions = [], [], []
 
     if platform.system() != "Linux" or platform.machine() not in ("x86_64", "AMD64"):

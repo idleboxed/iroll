@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 
 
 def read_instructions() -> bytes:
+    """Read and validate the packaged SD instruction file."""
     content = files("iroll").joinpath("resources", "sd", "common", INSTRUCTIONS_NAME).read_bytes()
     require(0 < len(content) <= 64 * 1024, "Missing or oversized packaged INSTRUCTIONS.md")
     content.decode("utf-8")
@@ -31,6 +32,7 @@ class CardInitializer:
         self.backend = backend or LinuxCardBackend()
 
     def create_plan(self, device: str) -> CardPlan:
+        """Inspect the card and return its proposed layout without writing to it."""
         read_instructions()
         return CardPlan(self.backend.inspect(device))
 
@@ -38,6 +40,7 @@ class CardInitializer:
         self, device: str, *, logs_root: Path, dry_run: bool,
         confirm: Callable[[CardPlan], bool], owner: tuple[int, int] | None = None,
     ) -> dict[str, Any]:
+        """Create an operation report, then preview the plan or request explicit initialization."""
         plan = self.create_plan(device)
         validate_journal_root(logs_root, plan.target, self.backend.read_mountinfo())
         report = create_report(logs_root, owner=owner)
@@ -70,6 +73,7 @@ class CardInitializer:
         self, plan: CardPlan, *, journal_path: Path, confirm: Callable[[CardPlan], bool],
         journal_owner: tuple[int, int] | None = None,
     ) -> dict[str, Any]:
+        """After approval, erase and format the checked card with a synchronized operation journal."""
         content = read_instructions()
         self.backend.validate_initialization(plan.target, journal_path)
         require(confirm(plan), "Confirmation declined; no card data was changed")

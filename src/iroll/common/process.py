@@ -29,6 +29,7 @@ class Runner:
         input_data: str | None = None,
         pass_fds: tuple[int, ...] = (),
     ) -> subprocess.CompletedProcess[str]:
+        """Run a command with controlled streams and clean up its process group on cancellation."""
         logger.debug("Command: %s (cwd=%s)", shlex.join(argv), cwd)
 
         with log.open("a", encoding="utf-8") if log else nullcontext(None) as output:

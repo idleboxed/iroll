@@ -22,12 +22,14 @@ class CardError(BuildError):
 
 
 def require(condition: bool, message: str) -> None:
+    """Raise CardError with the supplied message when a card safety condition fails."""
 
     if not condition:
         raise CardError(message)
 
 
 def validate_device_name(device: str) -> None:
+    """Require a supported whole-disk device name, not a partition or alias."""
     require(
         re.fullmatch(r"/dev/(?:sd[a-z]+|mmcblk[0-9]+)", device) is not None,
         "Specify a whole removable disk: /dev/sdX or /dev/mmcblkN; links and partitions are forbidden",
@@ -63,13 +65,16 @@ class CardPlan:
 
     @property
     def last_sector(self) -> int:
+        """Return the final usable sector before the backup GPT."""
         return self.target.size // SECTOR_BYTES - 34
 
     @property
     def partition_sectors(self) -> int:
+        """Return the planned data partition's size in sectors."""
         return self.last_sector - PARTITION_START + 1
 
     def build_sfdisk_input(self) -> str:
+        """Describe the single GPT data partition for sfdisk."""
         return (
             "label: gpt\nunit: sectors\n"
             f"first-lba: {PARTITION_START}\nlast-lba: {self.last_sector}\n\n"
@@ -78,6 +83,7 @@ class CardPlan:
         )
 
     def build_document(self) -> dict[str, Any]:
+        """Return the card identity and proposed layout as a report object."""
         return {
             "target": {
                 **asdict(self.target),
@@ -103,4 +109,5 @@ class CardPlan:
 
 
 def validate_same_card(expected: CardTarget, actual: CardTarget) -> None:
+    """Reject changes to the card identity, size, connection sequence or topology."""
     require(expected == actual, "Card identity, diskseq, size or device topology changed; inspect again")
